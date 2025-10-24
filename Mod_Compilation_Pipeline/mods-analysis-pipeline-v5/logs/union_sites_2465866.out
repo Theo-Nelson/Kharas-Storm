@@ -1,0 +1,18 @@
+📌 Generating union sites for each mod code...
+🔄 Processing mod code: a
+  ✅ Union file written: /athena/masonlab/scratch/users/thn4005/scripts/projects_v2/basecalled_samples/v2/comparison_pipeline_results_kharas/outputs/union_beds/unions/all_samples_a_union_sites.bed
+🔄 Processing mod code: m
+  ✅ Union file written: /athena/masonlab/scratch/users/thn4005/scripts/projects_v2/basecalled_samples/v2/comparison_pipeline_results_kharas/outputs/union_beds/unions/all_samples_m_union_sites.bed
+🔄 Processing mod code: 17596
+  ✅ Union file written: /athena/masonlab/scratch/users/thn4005/scripts/projects_v2/basecalled_samples/v2/comparison_pipeline_results_kharas/outputs/union_beds/unions/all_samples_17596_union_sites.bed
+🔄 Processing mod code: 17802
+  ✅ Union file written: /athena/masonlab/scratch/users/thn4005/scripts/projects_v2/basecalled_samples/v2/comparison_pipeline_results_kharas/outputs/union_beds/unions/all_samples_17802_union_sites.bed
+🔄 Processing mod code: 19227
+  ✅ Union file written: /athena/masonlab/scratch/users/thn4005/scripts/projects_v2/basecalled_samples/v2/comparison_pipeline_results_kharas/outputs/union_beds/unions/all_samples_19227_union_sites.bed
+🔄 Processing mod code: 19228
+  ✅ Union file written: /athena/masonlab/scratch/users/thn4005/scripts/projects_v2/basecalled_samples/v2/comparison_pipeline_results_kharas/outputs/union_beds/unions/all_samples_19228_union_sites.bed
+🔄 Processing mod code: 19229
+  ✅ Union file written: /athena/masonlab/scratch/users/thn4005/scripts/projects_v2/basecalled_samples/v2/comparison_pipeline_results_kharas/outputs/union_beds/unions/all_samples_19229_union_sites.bed
+🔄 Processing mod code: 69426
+  ✅ Union file written: /athena/masonlab/scratch/users/thn4005/scripts/projects_v2/basecalled_samples/v2/comparison_pipeline_results_kharas/outputs/union_beds/unions/all_samples_69426_union_sites.bed
+✅ All union BEDs generated.

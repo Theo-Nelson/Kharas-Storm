@@ -1,0 +1,16 @@
+/athena/cayuga_0003/scratch/users/thn4005/scripts/mods-analysis-pipeline-v5/scripts/05_filter_by_zscore.py:97: FutureWarning: errors='ignore' is deprecated and will raise in a future version. Use to_numeric without passing `errors` and catch exceptions explicitly instead
+  df[c] = pd.to_numeric(df[c], errors="ignore")
+/athena/cayuga_0003/scratch/users/thn4005/scripts/mods-analysis-pipeline-v5/scripts/05_filter_by_zscore.py:97: FutureWarning: errors='ignore' is deprecated and will raise in a future version. Use to_numeric without passing `errors` and catch exceptions explicitly instead
+  df[c] = pd.to_numeric(df[c], errors="ignore")
+/athena/cayuga_0003/scratch/users/thn4005/scripts/mods-analysis-pipeline-v5/scripts/05_filter_by_zscore.py:97: FutureWarning: errors='ignore' is deprecated and will raise in a future version. Use to_numeric without passing `errors` and catch exceptions explicitly instead
+  df[c] = pd.to_numeric(df[c], errors="ignore")
+/athena/cayuga_0003/scratch/users/thn4005/scripts/mods-analysis-pipeline-v5/scripts/05_filter_by_zscore.py:97: FutureWarning: errors='ignore' is deprecated and will raise in a future version. Use to_numeric without passing `errors` and catch exceptions explicitly instead
+  df[c] = pd.to_numeric(df[c], errors="ignore")
+/athena/cayuga_0003/scratch/users/thn4005/scripts/mods-analysis-pipeline-v5/scripts/05_filter_by_zscore.py:97: FutureWarning: errors='ignore' is deprecated and will raise in a future version. Use to_numeric without passing `errors` and catch exceptions explicitly instead
+  df[c] = pd.to_numeric(df[c], errors="ignore")
+/athena/cayuga_0003/scratch/users/thn4005/scripts/mods-analysis-pipeline-v5/scripts/05_filter_by_zscore.py:97: FutureWarning: errors='ignore' is deprecated and will raise in a future version. Use to_numeric without passing `errors` and catch exceptions explicitly instead
+  df[c] = pd.to_numeric(df[c], errors="ignore")
+/athena/cayuga_0003/scratch/users/thn4005/scripts/mods-analysis-pipeline-v5/scripts/05_filter_by_zscore.py:97: FutureWarning: errors='ignore' is deprecated and will raise in a future version. Use to_numeric without passing `errors` and catch exceptions explicitly instead
+  df[c] = pd.to_numeric(df[c], errors="ignore")
+/athena/cayuga_0003/scratch/users/thn4005/scripts/mods-analysis-pipeline-v5/scripts/05_filter_by_zscore.py:97: FutureWarning: errors='ignore' is deprecated and will raise in a future version. Use to_numeric without passing `errors` and catch exceptions explicitly instead
+  df[c] = pd.to_numeric(df[c], errors="ignore")
