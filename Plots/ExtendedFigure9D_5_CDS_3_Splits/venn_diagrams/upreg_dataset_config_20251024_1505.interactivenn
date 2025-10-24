@@ -1,0 +1,100 @@
+{
+  "sets": [
+    {
+      "name": "Upregulated Proteins",
+      "elements": [
+        "AARSD1",
+        "ATXN10",
+        "BIRC5",
+        "DNM1",
+        "GBP4",
+        "IFT27",
+        "LPL",
+        "MAP10",
+        "NXF1",
+        "RAB3GAP2",
+        "RB1",
+        "RFC3",
+        "RNF114",
+        "SLPI"
+      ],
+      "color": "#ffbe5c"
+    },
+    {
+      "name": "Permutation 1",
+      "elements": [
+        "ATXN7L3B",
+        "CCT6A",
+        "CSTF3",
+        "CYHR1",
+        "FOSL1",
+        "ISG15",
+        "MED28",
+        "NOC3L",
+        "NPDC1",
+        "RPS23",
+        "TMEM11",
+        "TMEM129",
+        "TWF2",
+        "UTP20"
+      ],
+      "color": "#a8e9a8"
+    },
+    {
+      "name": "Permutation 2",
+      "elements": [
+        "BTF3",
+        "CD300LF",
+        "CHIC2",
+        "CTDSP1",
+        "ENDOD1",
+        "FEM1A",
+        "GINS2",
+        "MAT2A",
+        "PPP3R1",
+        "RBM14-RBM4",
+        "RTF2",
+        "SPR",
+        "UQCRC1",
+        "VPS4A"
+      ],
+      "color": "#88a8ff"
+    },
+    {
+      "name": "Permutation 3",
+      "elements": [
+        "CNPY3-GNMT",
+        "EIF4EBP2",
+        "ELAPOR1",
+        "FANCG",
+        "FBXO45",
+        "FKBP1A",
+        "GTPBP8",
+        "ING3",
+        "LCP2",
+        "MRS2",
+        "NAA10",
+        "NHEJ1",
+        "OIP5",
+        "SLC15A4"
+      ],
+      "color": "#ffa76d"
+    },
+    {
+      "name": "Set E",
+      "elements": [],
+      "color": "#cccccc"
+    },
+    {
+      "name": "Set F",
+      "elements": [],
+      "color": "#cccccc"
+    }
+  ],
+  "tree_code": "",
+  "slider_code": "",
+  "font_size": 18,
+  "opacity": 0.5,
+  "case_sensitive": false,
+  "show_percentages": false
+}

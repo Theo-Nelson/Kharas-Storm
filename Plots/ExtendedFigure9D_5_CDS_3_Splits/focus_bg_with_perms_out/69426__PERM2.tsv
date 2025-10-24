@@ -1,0 +1,1 @@
+mod	cond	set	region	a	b	c	d	or	lnOR	lnOR_se	or_ci_low	or_ci_high	a_w	b_w	c_w	d_w	w_or	w_lnOR	w_lnOR_se	w_or_ci_low	w_or_ci_high
