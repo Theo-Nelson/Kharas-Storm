@@ -1,4 +1,4 @@
-# Direct RNA Nanopore Analysis to Examine METTL3 Inhibitor Resistance
+# Direct RNA Analysis to Examine METTL3 Inhibitor Resistance
 
 This repository contains pipelines for alignment, base modification calling, and differential expression analysis of **Nanopore direct RNA sequencing data** from THP-1 leukemia cells treated with METTL3 inhibitors and/or YTHDC1 overexpression.
 
