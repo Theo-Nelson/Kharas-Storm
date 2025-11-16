@@ -20,7 +20,7 @@ Nanopore direct RNA sequencing was used to characterize **m⁶A and other base m
 | THP1 GFP-YTHDC1 DMSO 48 h | 3 | YTHDC1 overexpression |
 | THP1 GFP-YTHDC1 STM2457 15 µM 48 h | 3 | Combined YTHDC1 + METTL3i |
 
-Sequencing was performed on **Oxford Nanopore PromethION** (Study ERP182419, ENA project PRJEB100992, submission 2025-10-29). All analyses use the same naming convention as the raw sample metadata (as documented in THP1_GFP-YTHDC1 OE_STM_48H_05202025.xlsx).
+Sequencing was performed on **Oxford Nanopore PromethION** (Study ERP182419, ENA project PRJEB100992, submission 2025-10-29). All analyses use the same naming convention as the raw sample metadata (as documented in `THP1_GFP-YTHDC1 OE_STM_48H_05202025.xlsx`).
 
 ---
 
