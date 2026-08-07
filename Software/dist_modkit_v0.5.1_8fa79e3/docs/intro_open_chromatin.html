@@ -1,0 +1,311 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Find regions of accessible chromatin - Modkit</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="custom.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="quick_start.html"><strong aria-hidden="true">1.</strong> Quick Start guides</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="intro_pileup.html"><strong aria-hidden="true">1.1.</strong> Constructing bedMethyl tables</a></li><li class="chapter-item expanded "><a href="intro_pileup_hemi.html"><strong aria-hidden="true">1.2.</strong> Make hemi-methylation bedMethyl tables</a></li><li class="chapter-item expanded "><a href="intro_adjust.html"><strong aria-hidden="true">1.3.</strong> Updating and adjusting MM tags</a></li><li class="chapter-item expanded "><a href="intro_sample_probs.html"><strong aria-hidden="true">1.4.</strong> Inspecting base modification probabilities</a></li><li class="chapter-item expanded "><a href="intro_summary.html"><strong aria-hidden="true">1.5.</strong> Summarizing a modBAM</a></li><li class="chapter-item expanded "><a href="intro_stats.html"><strong aria-hidden="true">1.6.</strong> Calculating modification statistics in regions</a></li><li class="chapter-item expanded "><a href="intro_call_mods.html"><strong aria-hidden="true">1.7.</strong> Calling mods in a modBAM</a></li><li class="chapter-item expanded "><a href="intro_edge_filter.html"><strong aria-hidden="true">1.8.</strong> Removing modification calls at the ends of reads</a></li><li class="chapter-item expanded "><a href="intro_repair.html"><strong aria-hidden="true">1.9.</strong> Repair MM/ML tags on trimmed reads</a></li><li class="chapter-item expanded "><a href="intro_motif.html"><strong aria-hidden="true">1.10.</strong> Working with sequence motifs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="intro_motif_bed.html"><strong aria-hidden="true">1.10.1.</strong> Making a motif BED file</a></li><li class="chapter-item expanded "><a href="intro_find_motifs.html"><strong aria-hidden="true">1.10.2.</strong> Find highly modified motif sequences</a></li><li class="chapter-item expanded "><a href="evaluate_motif.html"><strong aria-hidden="true">1.10.3.</strong> Evaluate and refine a table of known motifs</a></li><li class="chapter-item expanded "><a href="motif_search_structured_logging.html"><strong aria-hidden="true">1.10.4.</strong> Structured logging schema</a></li></ol></li><li class="chapter-item expanded "><a href="intro_extract.html"><strong aria-hidden="true">1.11.</strong> Extracting read information to a table</a></li><li class="chapter-item expanded "><a href="intro_localize.html"><strong aria-hidden="true">1.12.</strong> Investigating patterns with localise</a></li><li class="chapter-item expanded "><a href="intro_dmr.html"><strong aria-hidden="true">1.13.</strong> Perform differential methylation scoring</a></li><li class="chapter-item expanded "><a href="intro_validate.html"><strong aria-hidden="true">1.14.</strong> Validate ground truth results</a></li><li class="chapter-item expanded "><a href="intro_entropy.html"><strong aria-hidden="true">1.15.</strong> Calculating methylation entropy</a></li><li class="chapter-item expanded "><a href="intro_include_bed.html"><strong aria-hidden="true">1.16.</strong> Narrow output to specific positions</a></li><li class="chapter-item expanded "><a href="intro_bedmethyl_merge.html"><strong aria-hidden="true">1.17.</strong> Manipulate bedMethyl files</a></li><li class="chapter-item expanded "><a href="intro_modbam_check_tags.html"><strong aria-hidden="true">1.18.</strong> Check modified base tags</a></li><li class="chapter-item expanded "><a href="intro_open_chromatin.html" class="active"><strong aria-hidden="true">1.19.</strong> Find regions of accessible chromatin</a></li></ol></li><li class="chapter-item expanded "><a href="advanced_usage.html"><strong aria-hidden="true">2.</strong> Extended subcommand help</a></li><li class="chapter-item expanded "><a href="troubleshooting.html"><strong aria-hidden="true">3.</strong> Troubleshooting</a></li><li class="chapter-item expanded "><a href="faq.html"><strong aria-hidden="true">4.</strong> Frequently asked questions</a></li><li class="chapter-item expanded "><a href="limitations.html"><strong aria-hidden="true">5.</strong> Current limitations</a></li><li class="chapter-item expanded "><a href="perf_considerations.html"><strong aria-hidden="true">6.</strong> Performance considerations</a></li><li class="chapter-item expanded "><a href="algo_details.html"><strong aria-hidden="true">7.</strong> Algorithm details</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="filtering.html"><strong aria-hidden="true">7.1.</strong> Pass/fail base modification calls</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="filtering_details.html"><strong aria-hidden="true">7.1.1.</strong> Threshold examples</a></li><li class="chapter-item expanded "><a href="filtering_numeric_details.html"><strong aria-hidden="true">7.1.2.</strong> Numeric details</a></li></ol></li><li class="chapter-item expanded "><a href="dmr_scoring_details.html"><strong aria-hidden="true">7.2.</strong> DMR model and scoring details</a></li><li class="chapter-item expanded "><a href="collapse.html"><strong aria-hidden="true">7.3.</strong> Ignoring and combining calls</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Modkit</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="find-regions-of-accessible-chromatin"><a class="header" href="#find-regions-of-accessible-chromatin">Find regions of accessible chromatin</a></h1>
+<p>Nanopore sequencing can detect multiple base modifications simultaneously and we can leverage this capability by introducing exogenous base modifications at specific functional regions.
+One such method uses a 6mA methyltransferase such as EcoGII or Hia5 to label accessible regions of chromatinized DNA, usually by treatment of cell nuclei with the enzyme.</p>
+<p><img src="./images/chromatin_stenciling_3.png" alt="Chromatin Accessibility treatment" title="Cartoon schematic showing exogenous 6mA introduced to regions of accessible chromatin" /></p>
+<h2 id="predict-regions-of-open-chromatin"><a class="header" href="#predict-regions-of-open-chromatin">Predict regions of open chromatin</a></h2>
+<p>Modkit comes with a machine learning model that has been trained to identify regions of open chromatin based on 6mA signal.
+You can invoke this model with the following command:</p>
+<pre><code class="language-bash">$ modkit open-chromatin predict ${mod_bam} \
+    --model ${model} \
+    --log modkit_predict.log \
+    -o ./accessible_regions.bedgraph \
+    --device 0
+</code></pre>
+<p>Where <code>${model}</code> is the path to the directory with the model, for example <code>dist_modkit_v0.5.0_38fda16/models/r1041_e82_400bps_hac_v5.2.0@v0.1.0</code>.
+The output of the command is a bedGraph file with the following schema:</p>
+<div class="table-wrapper"><table><thead><tr><th>column</th><th>name</th><th>description</th><th>type</th></tr></thead><tbody>
+<tr><td>1</td><td>chrom</td><td>contig or scaffold</td><td>string</td></tr>
+<tr><td>2</td><td>start</td><td>start of the region</td><td>int</td></tr>
+<tr><td>3</td><td>end</td><td>end of the region</td><td>int</td></tr>
+<tr><td>4</td><td>probability</td><td>accessibility probability, (0.0, 1)</td><td>float</td></tr>
+</tbody></table>
+</div>
+<h2 id="configuring---step-size"><a class="header" href="#configuring---step-size">Configuring <code>--step-size</code></a></h2>
+<p>The open chromatin model in Modkit works by making predictions on 100 base pair windows of the genome.
+The output of the model is a prediction <em>probability</em> between 0.0 and 1.0, non-inclusive.
+To make predictions on the whole genome (or regions when the <code>--include-bed</code> option is provided) Modkit applies the model to overlapping windows.
+The <code>--step-size</code> determines how much to advance before making another prediction:</p>
+<pre><code class="language-text">Genome    &lt;--//------------------//-&gt;
+Window 1       |---w----|
+Window 2       |_s_|---w----|
+</code></pre>
+<p>In the above <code>w</code> is the window size (100bp with the current model) and <code>s</code> is the step size which can be configured via the <code>--step-size</code> parameter.
+The smaller the step size, the finer-graned resolution the output at the cost of more computation.
+This can be seen in the following example browser image:</p>
+<p><img src="./images/open_chromatin_step_size.png" alt="Step size examples" title="Decreasing step size increases resolution" /></p>
+<p>Step size of 25 base pairs is the default.</p>
+<h2 id="using---threshold-to-get-regions-of-high-confidence"><a class="header" href="#using---threshold-to-get-regions-of-high-confidence">Using <code>--threshold</code> to get regions of high confidence</a></h2>
+<p>As seen above, the output from <code>ope-chromatin predict</code> is a stream of probabilities over the genome or desired region of the genome.
+A lot of these predictions are going to be very close to zero.
+You can remove low-probability regions with the <code>--threshold</code> option so that only intervals with a probability greater than or equal to this value are reported.
+Using this option in combination with <code>bedtools merge</code> can transform the bedGraph file into a BED of predicted open chromatin regions.</p>
+<pre><code class="language-bash">$ modkit open-chromatin predict ${bam} \
+  --model ${model} \
+  --threshold 0.8 \
+  --include-bed promoters_slop2000.bed \
+  -o stdout \
+  | bedtools merge -i - &gt; accessible_regions.bed
+</code></pre>
+<h2 id="running-with-a-gpu"><a class="header" href="#running-with-a-gpu">Running with a GPU</a></h2>
+<p>Modkit comes distributed with the capability to run open chromatin prediction on a normal CPU, NVIDIA GPUs, and can be built to run on Apple GPUs.
+The normal distribution only has the capability to run on CPU hardware.
+At the current stage of development this configuration is probably too slow for most practical purposes outside of small region checks.
+The <code>candle</code> distribution can be downloaded and used with NVIDIA GPUs directly, however we cannot guarantee that it will work on <em>every</em> GPU setup.
+For the best performance on GPU <em>or</em> CPU, the <code>tch</code> (pytorch) distribution is recommended, however it requires that you download libtorch from the internet.
+Instructions can be found in the <code>BUILD_NOTES_*.txt</code> packaged with the software.</p>
+<h2 id="troubleshooting-checking-your-input-data"><a class="header" href="#troubleshooting-checking-your-input-data">Troubleshooting: Checking your input data</a></h2>
+<p>To predict regions of open chromatin, the input modBAM should have 6mA base modification calls.
+You can quickly check that you have valid 6mA calls using the <a href="./intro_modbam_check_tags.html"><code>check-tags</code> command</a>:</p>
+<pre><code class="language-bash">$ modkit modbam check-tags ${bam} --head 1000
+</code></pre>
+<p>This command will return non-zero when you have invalid MM/ML <a href="https://samtools.github.io/hts-specs/SAMtags.pdf">SAMTags</a>.
+You should expect to see an output similar to this:</p>
+<pre><code class="language-text">&gt; checking tags on first 1000 reads
+&gt; no errors
+&gt; num PASS records: 1000 (100.00%)
+&gt; num records: 1000
+&gt; valid record tag headers:
++------------+-------+
+| tag_header | count |
++------------+-------+
+| A+a.       | 1000  |
++------------+-------+
+
+
+&gt; modified bases:
++--------+--------------+----------+------+
+| strand | primary_base | mod_code | mode |
++--------+--------------+----------+------+
+| +      | A            | a        | .    |
++--------+--------------+----------+------+
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="intro_modbam_check_tags.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="advanced_usage.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="intro_modbam_check_tags.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="advanced_usage.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,496 @@
+<!DOCTYPE HTML>
+<html lang="en" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Perform differential methylation scoring - Modkit</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="custom.css">
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="quick_start.html"><strong aria-hidden="true">1.</strong> Quick Start guides</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="intro_pileup.html"><strong aria-hidden="true">1.1.</strong> Constructing bedMethyl tables</a></li><li class="chapter-item expanded "><a href="intro_pileup_hemi.html"><strong aria-hidden="true">1.2.</strong> Make hemi-methylation bedMethyl tables</a></li><li class="chapter-item expanded "><a href="intro_adjust.html"><strong aria-hidden="true">1.3.</strong> Updating and adjusting MM tags</a></li><li class="chapter-item expanded "><a href="intro_sample_probs.html"><strong aria-hidden="true">1.4.</strong> Inspecting base modification probabilities</a></li><li class="chapter-item expanded "><a href="intro_summary.html"><strong aria-hidden="true">1.5.</strong> Summarizing a modBAM</a></li><li class="chapter-item expanded "><a href="intro_stats.html"><strong aria-hidden="true">1.6.</strong> Calculating modification statistics in regions</a></li><li class="chapter-item expanded "><a href="intro_call_mods.html"><strong aria-hidden="true">1.7.</strong> Calling mods in a modBAM</a></li><li class="chapter-item expanded "><a href="intro_edge_filter.html"><strong aria-hidden="true">1.8.</strong> Removing modification calls at the ends of reads</a></li><li class="chapter-item expanded "><a href="intro_repair.html"><strong aria-hidden="true">1.9.</strong> Repair MM/ML tags on trimmed reads</a></li><li class="chapter-item expanded "><a href="intro_motif.html"><strong aria-hidden="true">1.10.</strong> Working with sequence motifs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="intro_motif_bed.html"><strong aria-hidden="true">1.10.1.</strong> Making a motif BED file</a></li><li class="chapter-item expanded "><a href="intro_find_motifs.html"><strong aria-hidden="true">1.10.2.</strong> Find highly modified motif sequences</a></li><li class="chapter-item expanded "><a href="evaluate_motif.html"><strong aria-hidden="true">1.10.3.</strong> Evaluate and refine a table of known motifs</a></li><li class="chapter-item expanded "><a href="motif_search_structured_logging.html"><strong aria-hidden="true">1.10.4.</strong> Structured logging schema</a></li></ol></li><li class="chapter-item expanded "><a href="intro_extract.html"><strong aria-hidden="true">1.11.</strong> Extracting read information to a table</a></li><li class="chapter-item expanded "><a href="intro_localize.html"><strong aria-hidden="true">1.12.</strong> Investigating patterns with localise</a></li><li class="chapter-item expanded "><a href="intro_dmr.html" class="active"><strong aria-hidden="true">1.13.</strong> Perform differential methylation scoring</a></li><li class="chapter-item expanded "><a href="intro_validate.html"><strong aria-hidden="true">1.14.</strong> Validate ground truth results</a></li><li class="chapter-item expanded "><a href="intro_entropy.html"><strong aria-hidden="true">1.15.</strong> Calculating methylation entropy</a></li><li class="chapter-item expanded "><a href="intro_include_bed.html"><strong aria-hidden="true">1.16.</strong> Narrow output to specific positions</a></li><li class="chapter-item expanded "><a href="intro_bedmethyl_merge.html"><strong aria-hidden="true">1.17.</strong> Manipulate bedMethyl files</a></li><li class="chapter-item expanded "><a href="intro_modbam_check_tags.html"><strong aria-hidden="true">1.18.</strong> Check modified base tags</a></li><li class="chapter-item expanded "><a href="intro_open_chromatin.html"><strong aria-hidden="true">1.19.</strong> Find regions of accessible chromatin</a></li></ol></li><li class="chapter-item expanded "><a href="advanced_usage.html"><strong aria-hidden="true">2.</strong> Extended subcommand help</a></li><li class="chapter-item expanded "><a href="troubleshooting.html"><strong aria-hidden="true">3.</strong> Troubleshooting</a></li><li class="chapter-item expanded "><a href="faq.html"><strong aria-hidden="true">4.</strong> Frequently asked questions</a></li><li class="chapter-item expanded "><a href="limitations.html"><strong aria-hidden="true">5.</strong> Current limitations</a></li><li class="chapter-item expanded "><a href="perf_considerations.html"><strong aria-hidden="true">6.</strong> Performance considerations</a></li><li class="chapter-item expanded "><a href="algo_details.html"><strong aria-hidden="true">7.</strong> Algorithm details</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="filtering.html"><strong aria-hidden="true">7.1.</strong> Pass/fail base modification calls</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="filtering_details.html"><strong aria-hidden="true">7.1.1.</strong> Threshold examples</a></li><li class="chapter-item expanded "><a href="filtering_numeric_details.html"><strong aria-hidden="true">7.1.2.</strong> Numeric details</a></li></ol></li><li class="chapter-item expanded "><a href="dmr_scoring_details.html"><strong aria-hidden="true">7.2.</strong> DMR model and scoring details</a></li><li class="chapter-item expanded "><a href="collapse.html"><strong aria-hidden="true">7.3.</strong> Ignoring and combining calls</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Modkit</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="perform-differential-methylation-scoring"><a class="header" href="#perform-differential-methylation-scoring">Perform differential methylation scoring</a></h1>
+<p>The <code>modkit dmr</code> command contains two subcommands, <code>pair</code> and <code>multi</code>, that will compare pairwise conditions and multiple conditions.
+The <code>pair</code> command can be used to perform differential methylation detection on single genome positions (for example CpGs) or regions provided as a BED file.
+On the other hand, <code>multi</code> can only be used to compare regions (such as CpG islands), provided as a BED file.
+There are essentially three differential methylation workflows:</p>
+<ol>
+<li>Perform differential methylation scoring with a pair of samples on regions of the genome.</li>
+<li>Perform differential methylation scoring across all pairs of samples on regions of the genome.</li>
+<li>Perform base-level differential modification detection for a pair of conditions.</li>
+</ol>
+<p>Each application is explained below. For details on the scoping of these applications see the <a href="./limitations.html">limitations</a>.</p>
+<h2 id="preparing-the-input-data"><a class="header" href="#preparing-the-input-data">Preparing the input data</a></h2>
+<p>The inputs to all <code>modkit dmr</code> commands are two or more bedMethyl files (created by <code>modkit pileup</code>) that have been compressed with <a href="https://www.htslib.org/doc/bgzip.html">bgzip</a> and indexed with <a href="https://www.htslib.org/doc/tabix.html">tabix</a>.
+An example of how to generate the input data is shown below:</p>
+<pre><code class="language-bash">ref=grch38.fasta
+threads=32
+
+norm=normal_sample.bam
+norm_pileup=normal_pileup.bed
+
+modkit pileup ${norm} ${norm_pileup} \
+  --cpg \
+  --ref ${ref} \
+  --threads ${threads} \
+  --log-filepath log.txt
+
+bgzip -k ${norm_pileup}
+tabix -p bed ${norm_pileup}.gz
+
+# pileup and compression can also be done in one step
+tumor=tumor_sample.bam
+tumor_pileup=tumor_pileup.bed.gz
+
+modkit pileup ${tumor} - \
+  --cpg \
+  --ref ${ref} \
+  --threads ${threads} \
+  --log-filepath log.txt | ${bgzip} -c &gt; ${tumor_pileup}
+
+tabix -p bed ${tumor_pileup}
+</code></pre>
+<h2 id="1-perform-differential-methylation-scoring-of-genomic-regions-for-a-pair-of-samples"><a class="header" href="#1-perform-differential-methylation-scoring-of-genomic-regions-for-a-pair-of-samples">1. Perform differential methylation scoring of genomic regions for a pair of samples.</a></h2>
+<p>Once you have the two samples to be compared in the appropriate format, the final piece necessary is a BED file of the regions to be compared.
+To continue with our example we can get CpG Islands from the <a href="http://genome.ucsc.edu/cgi-bin/hgTables">UCSC table browser</a>.
+The data may not always be appropriate input for <code>modkit</code>.
+For example, the CpG Islands track has extra columns and a header line:</p>
+<pre><code class="language-text">#bin  chrom  chromStart  chromEnd  name          length  cpgNum  gcNum  perCpg  perGc  obsExp
+660   chr20  9838623     9839213   CpG:  47      590     47     383     15.9   64.9    0.76
+661   chr20  10034962    10035266  CpG:  35      304     35     228     23     75      0.85
+</code></pre>
+<p>Therefore, we need to transform the data with <code>awk</code> or similar, such as:</p>
+<pre><code class="language-bash">awk 'BEGIN{FS="\t"; OFS="\t"} NR&gt;1 {print $2, $3, $4, $5}' cpg_islands_ucsc.bed \
+  | bedtools sort -i - &gt;  cpg_islands_ucsc_cleaned.bed
+</code></pre>
+<p>Keeping the <code>name</code> column is optional.
+Sorting the regions isn't <em>strictly</em> necessary, the output will be in the same order as the regions file.
+Below is an example command to produce the scored output.
+The <code>--base</code> option tells <code>modkit dmr</code> which bases to use for scoring the differences, the argument should be a canonical nucleotide (<code>A</code>, <code>C</code>, <code>G</code>, or <code>T</code>) whichever primary sequence base has the modifications you're interested in capturing.
+For example, for CpG islands the base we're interested in is <code>C</code>.</p>
+<pre><code class="language-bash">regions=cpg_islands_ucsc_cleaned.bed
+dmr_result=cpg_islands_tumor_normal.bed
+
+modkit dmr pair \
+  -a ${norm_pileup}.gz \
+  --index-a ${norm_pileup}.gz.tbi \ # optional
+  -b ${tumor_pileup}.gz \
+  --index-b ${tumor_pileup}.gz.tbi \ # optional
+  -o ${dmr_result} \ # output to stdout if not present
+  -r ${regions} \
+  --ref ${ref} \
+  --base C \  # may be repeated if multiple modifications are being used
+  --threads ${threads} \
+  --log-filepath dmr.log
+</code></pre>
+<p>The full schema is described <a href="#differential-methylation-output-format">below</a> with an example output.</p>
+<h2 id="2-perform-differential-methylation-detection-on-all-pairs-of-samples-over-regions-from-the-genome"><a class="header" href="#2-perform-differential-methylation-detection-on-all-pairs-of-samples-over-regions-from-the-genome">2. Perform differential methylation detection on all pairs of samples over regions from the genome.</a></h2>
+<p>The <code>modkit dmr multi</code> command runs all pairwise comparisons for more than two samples for all regions provided in the regions BED file.
+The preparation of the data is identical to that for the <a href="#preparing-the-input-data">previous section</a> (for each sample, of course).</p>
+<p><strong>Note</strong> that if multiple samples are given the same name, they will be combined.</p>
+<p>An example command could be:</p>
+<pre><code class="language-bash">modkit dmr multi \
+  -s ${norm_pileup_1}.gz norm1 \
+  -s ${tumor_pileup_1}.gz tumor1 \
+  -s ${norm_pileup_2}.gz norm2 \
+  -s ${tumor_pileup_2}.gz tumor2 \
+  -o ${dmr_dir} \ # required for multi
+  -r ${cpg_islands} \ # skip this option to perform base-level DMR
+  --ref ${ref} \
+  --base C \
+  -t 10 \
+  -f \
+  --log-filepath dmr_multi.log
+</code></pre>
+<p>For example the samples could be haplotype-partitioned bedMethyl tables or biological replicates.
+Unlike for <code>modkit dmr pair</code> a sample name (e.g. <code>norm1</code> and <code>tumor1</code> above) must be provided for each input
+sample.</p>
+<h2 id="3-detecting-differential-modification-at-single-base-positions"><a class="header" href="#3-detecting-differential-modification-at-single-base-positions">3. Detecting differential modification at single base positions</a></h2>
+<p>The <code>modkit dmr pair</code> command has the ability to score individual bases (e.g. differentially methylated CpGs).
+To run single-base analysis on one or more paired samples, simply omit the <code>--regions</code> (<code>-r</code>) option when running <code>modkit dmr pair</code>.
+When performing single-base analysis the likelihood ratio score and a MAP-based p-value are available.
+For details on the likelihood ratio score and the MAP-based p-value, see the <a href="./dmr_scoring_details.html">scoring details section</a>.
+For example the above command becomes:</p>
+<pre><code class="language-bash">dmr_result=single_base_haplotype_dmr.bed
+
+modkit dmr pair \
+  -a ${hp1_pileup}.gz \
+  -b ${hp2_pileup}.gz \
+  -o ${dmr_result} \
+  --ref ${ref} \
+  --base C \
+  --threads ${threads} \
+  --log-filepath dmr.log
+</code></pre>
+<p>Multiple replicates can be provided as well by repeating the <code>-a</code> and <code>-b</code> options, such as:</p>
+<pre><code class="language-bash">dmr_result=tumor_normal_single_base_replicates.bed
+
+modkit dmr pair \
+  -a ${norm_pileup_1}.gz \
+  -a ${norm_pileup_2}.gz \
+  -b ${tumor_pileup_1}.gz \
+  -b ${tumor_pileup_2}.gz \
+  -o ${dmr_result_replicates} \
+  --ref ${ref} \
+  --base C \
+  --threads ${threads} \
+  --log-filepath dmr.log
+</code></pre>
+<p>Keep in mind that the MAP-based p-value provided in single-site analysis is based on a "modified" vs "unmodified" model, see the <a href="./dmr_scoring_details.html">scoring section</a> and <a href="./limitations.html">limitations</a> for additional details.</p>
+<h3 id="note-about-modification-codes"><a class="header" href="#note-about-modification-codes">Note about modification codes</a></h3>
+<p>The <code>modkit dmr</code> commands require the <code>--base</code> option to determine which genome positions to compare, i.e. <code>--base C</code> tells <code>modkit</code> to compare methylation at cytosine bases.
+You may use this option multiple times to compare methylation at multiple primary sequence bases.
+It is possible that, during <code>pileup</code> a read will have a mismatch and a modification call, such as a C-&gt;A mismatch and a 6mA call on that A, and you may not want to use that 6mA call when calculating the differential methylation metrics.
+To filter out bedMethyl records like this, <code>modkit</code> uses the <a href="https://samtools.github.io/hts-specs/SAMtags.pdf">SAM specification</a> (page 9) of modification codes to determine which modification codes apply to which primary sequence bases.
+For example, <code>h</code> is 5hmC and applies to cytosine bases, <code>a</code> is 6mA and applies to adenine bases.
+However, <code>modkit pileup</code> does not require that you use modification codes only in the specification.
+If your bedMethyl has records with custom modification codes or codes that aren't in the specification yet, use <code>--assign-code &lt;mod_code&gt;:&lt;primary_base&gt;</code> to indicate the code applies to a given primary sequence base.</p>
+<h2 id="differential-methylation-output-format"><a class="header" href="#differential-methylation-output-format">Differential methylation output format</a></h2>
+<p>The output from <code>modkit dmr pair</code> (and for each pairwise comparison with <code>modkit dmr multi</code>) is (roughly) a BED file with the following schema:</p>
+<div class="table-wrapper"><table><thead><tr><th>column</th><th>name</th><th>description</th><th>type</th></tr></thead><tbody>
+<tr><td>1</td><td>chrom</td><td>name of reference sequence from bedMethyl input samples</td><td>str</td></tr>
+<tr><td>2</td><td>start position</td><td>0-based start position, from <code>--regions</code> argument</td><td>int</td></tr>
+<tr><td>3</td><td>end position</td><td>0-based exclusive end position, from <code>--regions</code> argument</td><td>int</td></tr>
+<tr><td>4</td><td>name</td><td><code>name</code> column from <code>--regions</code> BED, or <code>chr:start-stop</code> if absent, "." for single sites</td><td>str</td></tr>
+<tr><td>5</td><td>score</td><td>difference score, more positive values have increased difference</td><td>float</td></tr>
+<tr><td>6</td><td>strand</td><td>strand for the region or single-base position</td><td>str</td></tr>
+<tr><td>7</td><td>sample<sub>a</sub> counts</td><td>counts of each base modification in the region, comma-separated, for sample A</td><td>str</td></tr>
+<tr><td>8</td><td>sample<sub>a</sub> total</td><td>total number of base modification calls in the region, including unmodified, for sample A</td><td>int</td></tr>
+<tr><td>9</td><td>sample<sub>b</sub> counts</td><td>counts of each base modification in the region, comma-separated, for sample B</td><td>str</td></tr>
+<tr><td>10</td><td>sample<sub>b</sub> total</td><td>total number of base modification calls in the region, including unmodified, for sample B</td><td>int</td></tr>
+<tr><td>11</td><td>sample<sub>a</sub> percents</td><td>percent of calls for each base modification in the region, comma-separated, for sample A</td><td>str</td></tr>
+<tr><td>12</td><td>sample<sub>b</sub> percents</td><td>percent of calls for each base modification in the region, comma-separated, for sample B</td><td>str</td></tr>
+<tr><td>13</td><td>sample<sub>a</sub> fraction modified</td><td>fraction modification (of any kind) in sample A</td><td>float</td></tr>
+<tr><td>14</td><td>sample<sub>b</sub> fraction modified</td><td>fraction modification (of any kind) in sample B</td><td>float</td></tr>
+<tr><td>(15)</td><td>cohen_h</td><td>Cohen's h <a href="https://en.wikipedia.org/wiki/Cohen%27s_h">statistic</a> (useful with regions and high-depth runs)</td><td>float</td></tr>
+<tr><td>(16)</td><td>cohen_h_low</td><td>95% confidence interval lower bound</td><td>float</td></tr>
+<tr><td>(17)</td><td>cohen_h_high</td><td>95% confidence interval upper bound</td><td>float</td></tr>
+</tbody></table>
+</div>
+<p>an example of the output is given below:</p>
+<pre><code class="language-tsv">#chrom  start     end       name         score                 strand    a_counts    a_total   b_counts    b_total  a_mod_percentages  b_mod_percentages  a_pct_modified  b_pct_modified  effect_size   cohen_h               cohen_h_low           cohen_h_high
+chr20   9838623   9839213   CpG:  47     266.4940337502594     .         h:12,m:45   1777      h:40,m:569  2101     h:0.68,m:2.53      h:1.90,m:27.08     0.032076534     0.28986198      -0.25778544   -0.7769052105982954   0.7137374830784644    0.8400729381181264
+chr20   10034962  10035266  CpG:  35     5.451198465947527     .         h:7,m:0     1513      h:8,m:8     1352     h:0.46,m:0.00      h:0.59,m:0.59      0.00462657      0.01183432      -0.00720775   -0.08185985199348272  0.008509433779133421  0.155210270207832
+chr20   10172120  10172545  CpG:  35     7.8346692400409665    .         h:15,m:28   1229      h:10,m:60   1091     h:1.22,m:2.28      h:0.92,m:5.50      0.034987796     0.06416132      -0.029173527  -0.1358646714824175   0.05433723875835786   0.21739210420647712
+chr20   10217487  10218336  CpG:  59     185.80326974114905    .         h:29,m:108  2339      h:38,m:453  1852     h:1.24,m:4.62      h:2.05,m:24.46     0.05857204      0.26511878      -0.20654674   -0.5928872447820701   0.5319235444885967    0.6538509450755435
+chr20   10433628  10434345  CpG:  71     -0.06490108458092436  .         h:29,m:2    2750      h:32,m:5    3737     h:1.05,m:0.07      h:0.86,m:0.13      0.0112727275    0.00990099      0.0013717376  0.013409890828678855  -0.03583284167510216  0.06265262333245987
+chr20   10671925  10674963  CpG:  255    6.372129285562551     .         h:43,m:24   9461      h:101,m:54  12880    h:0.45,m:0.25      h:0.78,m:0.42      0.0070817037    0.012034162     -0.004952458  -0.05133810350234183  0.024799813076449084  0.07787639392823457
+</code></pre>
+<p><strong>n.b.</strong> Columns 15, 16, and 17 are present when the <code>--regions</code> option is passed, but these columns are on the right side of the table when performing single-site analysis (below).
+It is generally recommended to use the <code>--header</code> flag and standard CSV parsing to make sure the schema's between experiments are maintained.</p>
+<p>When performing single-site analysis, the following additional columns are added:</p>
+<div class="table-wrapper"><table><thead><tr><th>column</th><th>name</th><th>description</th><th>type</th></tr></thead><tbody>
+<tr><td>15</td><td>MAP-based p-value</td><td>ratio of the posterior probability of observing the effect size over zero effect size</td><td>float</td></tr>
+<tr><td>16</td><td>effect size</td><td>percent modified in sample A (col 12) minus percent modified in sample B (col 13)</td><td>float</td></tr>
+<tr><td>17</td><td>balanced MAP-based p-value</td><td>MAP-based p-value when all replicates are balanced</td><td>float</td></tr>
+<tr><td>18</td><td>balanced effect size</td><td>effect size when all replicates are balanced</td><td>float</td></tr>
+<tr><td>19</td><td>pct_a_samples</td><td>percent of 'a' samples used in statistical test</td><td>float</td></tr>
+<tr><td>20</td><td>pct_b_samples</td><td>percent of 'b' samples used in statistical test</td><td>float</td></tr>
+<tr><td>21</td><td>per-replicate p-values</td><td>MAP-based p-values for matched replicate pairs</td><td>float</td></tr>
+<tr><td>22</td><td>per-replicate effect sizes</td><td>effect sizes matched replicate pairs</td><td>float</td></tr>
+<tr><td>23</td><td>cohen_h</td><td>Cohen's h <a href="https://en.wikipedia.org/wiki/Cohen%27s_h">statistic</a> (useful with regions and high-depth runs)</td><td>float</td></tr>
+<tr><td>24</td><td>cohen_h_low</td><td>95% confidence interval lower bound</td><td>float</td></tr>
+<tr><td>25</td><td>cohen_h_high</td><td>95% confidence interval upper bound</td><td>float</td></tr>
+</tbody></table>
+</div>
+<p>Columns 16-19 are only produced when multiple samples are provided, columns 20 and 21 are only produced when there is an equal number of 'a' and 'b' samples.
+When using multiple samples, it is possible that not every sample will have a modification fraction at a position.
+When this happens, the statistical test is still performed and the values of <code>pct_a_samples</code> and <code>pct_b_samples</code> reflect the percent of samples from each condition used in the test.</p>
+<p>Columns 20 and 21 have the replicate pairwise MAP-based p-values and effect sizes which are calculated based on their order provided on the command line.
+For example in the abbreviated command below:</p>
+<pre><code class="language-bash">modkit dmr pair \
+  -a ${norm_pileup_1}.gz \
+  -a ${norm_pileup_2}.gz \
+  -b ${tumor_pileup_1}.gz \
+  -b ${tumor_pileup_2}.gz \
+  ...
+</code></pre>
+<p>Column 20 will contain the MAP-based p-value comparing <code>norm_pileup_1</code> versus <code>tumor_pileup_1</code> and <code>norm_pileup_2</code> versus <code>norm_pileup_2</code>.
+Column 21 will contain the effect sizes, values are comma-separated.
+If you have a different number of samples for each condition, such as:</p>
+<pre><code class="language-bash">modkit dmr pair \
+  -a ${norm_pileup_1}.gz \
+  -a ${norm_pileup_2}.gz \
+  -a ${norm_pileup_3}.gz \
+  -b ${tumor_pileup_1}.gz \
+  -b ${tumor_pileup_2}.gz \
+</code></pre>
+<p>these columns will not be present.</p>
+<p>The full table when performing single-site analysis with equal numbers of samples in groups, when running <code>modkit dmr pair</code>, will have the following schema:</p>
+<div class="table-wrapper"><table><thead><tr><th>column</th><th>name</th><th>description</th><th>type</th></tr></thead><tbody>
+<tr><td>1</td><td>chrom</td><td>name of reference sequence from bedMethyl input samples</td><td>str</td></tr>
+<tr><td>2</td><td>start position</td><td>0-based start position, from <code>--regions</code> argument</td><td>int</td></tr>
+<tr><td>3</td><td>end position</td><td>0-based exclusive end position, from <code>--regions</code> argument</td><td>int</td></tr>
+<tr><td>4</td><td>name</td><td><code>name</code> column from <code>--regions</code> BED, or <code>chr:start-stop</code> if absent, "." for single sites</td><td>str</td></tr>
+<tr><td>5</td><td>score</td><td>difference score, more positive values have increased difference</td><td>float</td></tr>
+<tr><td>6</td><td>strand</td><td>strand for the region or single-base position</td><td>str</td></tr>
+<tr><td>7</td><td>sample<sub>a</sub> counts</td><td>counts of each base modification in the region, comma-separated, for sample A</td><td>str</td></tr>
+<tr><td>8</td><td>sample<sub>a</sub> total</td><td>total number of base modification calls in the region, including unmodified, for sample A</td><td>int</td></tr>
+<tr><td>9</td><td>sample<sub>b</sub> counts</td><td>counts of each base modification in the region, comma-separated, for sample B</td><td>str</td></tr>
+<tr><td>10</td><td>sample<sub>b</sub> total</td><td>total number of base modification calls in the region, including unmodified, for sample B</td><td>int</td></tr>
+<tr><td>11</td><td>sample<sub>a</sub> percents</td><td>percent of calls for each base modification in the region, comma-separated, for sample A</td><td>str</td></tr>
+<tr><td>12</td><td>sample<sub>b</sub> percents</td><td>percent of calls for each base modification in the region, comma-separated, for sample B</td><td>str</td></tr>
+<tr><td>13</td><td>sample<sub>a</sub> fraction modified</td><td>fraction modification (of any kind) in sample A</td><td>float</td></tr>
+<tr><td>14</td><td>sample<sub>b</sub> fraction modified</td><td>fraction modification (of any kind) in sample B</td><td>float</td></tr>
+<tr><td>15</td><td>MAP-based p-value</td><td>ratio of the posterior probability of observing the effect size over zero effect size</td><td>float</td></tr>
+<tr><td>16</td><td>effect size</td><td>percent modified in sample A (col 12) minus percent modified in sample B (col 13)</td><td>float</td></tr>
+<tr><td>17</td><td>balanced MAP-based p-value</td><td>MAP-based p-value when all replicates are balanced</td><td>float</td></tr>
+<tr><td>18</td><td>balanced effect size</td><td>effect size when all replicates are balanced</td><td>float</td></tr>
+</tbody></table>
+</div>
+<h2 id="segmenting-on-differential-methylation"><a class="header" href="#segmenting-on-differential-methylation">Segmenting on differential methylation</a></h2>
+<p>When running <code>modkit dmr</code> without <code>--regions</code> (i.e. <a href="#3-detecting-differential-modification-at-single-base-positions">single-site analysis</a>) you can generate regions of differential methylation on-the-fly using the segmenting <a href="./dmr_scoring_details.html#dmr-segmentation-hidden-markov-model">hidden Markov model</a> (HMM).
+To run segmenting on the fly, add the <code>--segment $segments_bed_fp</code> option to the command such as:</p>
+<pre><code class="language-bash">dmr_result=single_base_haplotype_dmr.bed
+dmr_segments=single_base_segements.bed
+
+modkit dmr pair \
+  -a ${hp1_pileup}.gz \
+  -b ${hp2_pileup}.gz \
+  -o ${dmr_result} \
+  --segment ${dmr_segments} \ # indicates to run segmentation
+  --ref ${ref} \
+  --base C \
+  --threads ${threads} \
+  --log-filepath dmr.log
+</code></pre>
+<p>The default settings for the HMM are to run in "coarse-grained" mode which will more eagerly join neighboring sites, potentially at the cost of including sites that are not differentially modified within "Different" blocks.
+To activate "fine-grained" mode, pass the <code>--fine-grained</code> flag.</p>
+<p>The output schema for the segments is:</p>
+<div class="table-wrapper"><table><thead><tr><th>column</th><th>name</th><th>description</th><th>type</th></tr></thead><tbody>
+<tr><td>1</td><td>chrom</td><td>name of reference sequence from bedMethyl input samples</td><td>str</td></tr>
+<tr><td>2</td><td>start position</td><td>0-based start position, from <code>--regions</code> argument</td><td>int</td></tr>
+<tr><td>3</td><td>end position</td><td>0-based exclusive end position, from <code>--regions</code> argument</td><td>int</td></tr>
+<tr><td>4</td><td>state-name</td><td>"different" when sites are differentially modified, "same" otherwise</td><td>str</td></tr>
+<tr><td>5</td><td>score</td><td>difference score, more positive values have increased difference</td><td>float</td></tr>
+<tr><td>6</td><td>N-sites</td><td>number of sites (bedmethyl records) in the segment</td><td>float</td></tr>
+<tr><td>7</td><td>sample<sub>a</sub> counts</td><td>counts of each base modification in the region, comma-separated, for sample A</td><td>str</td></tr>
+<tr><td>8</td><td>sample<sub>b</sub> counts</td><td>counts of each base modification in the region, comma-separated, for sample B</td><td>str</td></tr>
+<tr><td>9</td><td>sample<sub>a</sub> percents</td><td>percent of calls for each base modification in the region, comma-separated, for sample A</td><td>str</td></tr>
+<tr><td>10</td><td>sample<sub>b</sub> percents</td><td>percent of calls for each base modification in the region, comma-separated, for sample B</td><td>str</td></tr>
+<tr><td>11</td><td>sample<sub>a</sub> fraction modified</td><td>percent modification (of any kind) in sample A</td><td>float</td></tr>
+<tr><td>12</td><td>sample<sub>b</sub> fraction modified</td><td>percent modification (of any kind) in sample B</td><td>float</td></tr>
+<tr><td>13</td><td>effect size</td><td>percent modified in sample A (col 11) minus percent modified in sample B (col 12)</td><td>float</td></tr>
+<tr><td>14</td><td>cohen_h</td><td>Cohen's h <a href="https://en.wikipedia.org/wiki/Cohen%27s_h">statistic</a> (useful with regions and high-depth runs)</td><td>float</td></tr>
+<tr><td>15</td><td>cohen_h_low</td><td>95% confidence interval lower bound</td><td>float</td></tr>
+<tr><td>16</td><td>cohen_h_high</td><td>95% confidence interval upper bound</td><td>float</td></tr>
+</tbody></table>
+</div>
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="intro_localize.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="intro_validate.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="intro_localize.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="intro_validate.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

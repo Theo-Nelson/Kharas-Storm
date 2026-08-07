@@ -1,0 +1,11 @@
+[modkit-logging/src/lib.rs::69][2026-07-16 09:14:25][DEBUG] command line: /private/tmp/claude-501/-Users-theo-Downloads-Kharas-Storm/6328bb45-0726-4133-9427-cfe30535ffe3/scratchpad/modkit_pkg/bin/modkit pileup 16-Jun-25_XuejingYang_RNADirect_Sample12_no_sample_id_20250616_1420_2D_PBE87459_e98ccd9b_pod5_MYC_BCL2_SP1.bam pileup_out_v2/16-Jun-25_XuejingYang_RNADirect_Sample12_no_sample_id_20250616_1420_2D_PBE87459_e98ccd9b_pod5_MYC_BCL2_SP1/16-Jun-25_XuejingYang_RNADirect_Sample12_no_sample_id_20250616_1420_2D_PBE87459_e98ccd9b_pod5_MYC_BCL2_SP1_BCL2_filtered_mod.bed --ref ref_chr8_12_18.fa --region chr18:63123346-63320090 --filter-threshold A:0.8 --mod-thresholds a:0.99 --max-depth 1000 -t 6 --with-header --interval-size 100000 --log-filepath pileup_out_v2/16-Jun-25_XuejingYang_RNADirect_Sample12_no_sample_id_20250616_1420_2D_PBE87459_e98ccd9b_pod5_MYC_BCL2_SP1/16-Jun-25_XuejingYang_RNADirect_Sample12_no_sample_id_20250616_1420_2D_PBE87459_e98ccd9b_pod5_MYC_BCL2_SP1_BCL2_log.txt
+[modkit-core/src/pileup/subcommand.rs::412][2026-07-16 09:14:25][INFO] parsing region chr18:63123346-63320090
+[modkit-core/src/command_utils.rs::44][2026-07-16 09:14:25][INFO] parsed user-input threshold 0.99 for mod-code a
+[modkit-core/src/command_utils.rs::295][2026-07-16 09:14:25][INFO] calculated chunk size: 9, interval size 100000, processing 900000 positions concurrently
+[modkit-core/src/command_utils.rs::166][2026-07-16 09:14:25][INFO] using threshold 0.8 for base A
+[modkit-core/src/command_utils.rs::60][2026-07-16 09:14:25][INFO] no default pass threshold was provided, so base modifications at primary sequence bases other than A will not be filtered
+[modkit-core/src/pileup/subcommand.rs::655][2026-07-16 09:14:25][INFO] Using filter threshold 0.8 for A.
+[modkit-core/src/pileup/subcommand.rs::673][2026-07-16 09:14:25][INFO] Using filter threshold 0.99 for mod code a.
+[modkit-core/src/interval_chunks.rs::526][2026-07-16 09:14:25][DEBUG] there is a single contig to work on (in 1 parts)
+[modkit-core/src/interval_chunks.rs::558][2026-07-16 09:14:25][DEBUG] no more records to process
+[modkit-core/src/pileup/subcommand.rs::812][2026-07-16 09:14:26][INFO] Done, processed 68742 rows. Processed ~338 reads and skipped zero reads.

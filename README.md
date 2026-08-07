@@ -166,6 +166,8 @@ Raw direct RNA sequencing data are deposited under:
 
 Sample metadata (RNA concentrations and QC ratios) for 12 THP-1 libraries analyzed here are provided in `THP1_GFP-YTHDC1 OE_STM_48H_05202025.xlsx`.
 
+Associated reference genomes used within this analysis are available here: https://zenodo.org/records/21842348
+
 ---
 
 ## Citation
